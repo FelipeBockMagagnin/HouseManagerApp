@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Button, View } from 'react-native'
+import { Text, View } from 'react-native'
 import Header from '../../Components/Header/header'
 
 export default function Profile ({ navigation }) {

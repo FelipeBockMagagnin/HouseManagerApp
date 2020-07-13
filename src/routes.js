@@ -1,14 +1,15 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createStackNavigator } from '@react-navigation/stack'
 import { NavigationContainer } from '@react-navigation/native'
+
 import Login from './Pages/Login/login'
 import Home from './Pages/Home/home'
 import Profile from './Pages/Profile/profile'
 import Todolist from './Pages/ToDoList/todolist'
 import Bills from './Pages/Bills/bills'
-import 'react-native-gesture-handler'
+
 import { Feather } from '@expo/vector-icons'
 
 const Tab = createBottomTabNavigator()
