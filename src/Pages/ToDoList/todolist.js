@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Alert, Text, Button, View, Modal, StyleSheet, TouchableHighlight, TextInput } from 'react-native'
+import { Text, Button, View, Modal, StyleSheet, TouchableHighlight, TextInput } from 'react-native'
 import Header from '../../Components/Header/header'
 
 export default function Todolist ({ navigation }) {
