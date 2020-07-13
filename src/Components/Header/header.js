@@ -6,8 +6,8 @@ import Constants from 'expo-constants'
 const Header = ({ navigation, title }) => {
   return (
     <View style={styles.header}>
-      <TouchableOpacity onPress={() => { navigation.openDrawer() }} style={styles.icons}>
-        <Ionicons name="md-menu" size={28} color="white" />
+      <TouchableOpacity onPress={() => { navigation.navigate('Profile') }} style={styles.icons}>
+        <Ionicons name="md-person" size={28} color="white" />
       </TouchableOpacity>
       <View style={styles.headerTitle}>
         <Text style={styles.headerText}>{title}</Text>
