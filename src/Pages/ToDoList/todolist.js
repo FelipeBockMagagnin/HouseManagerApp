@@ -1,12 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, Button, View, Modal, StyleSheet, TouchableHighlight, TextInput } from 'react-native'
 import Header from '../../Components/Header/header'
+import { GetTodoList } from '../../providers/todolistProvider'
 
 export default function Todolist ({ navigation }) {
   const [items, setItems] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
   const [newName, setNewName] = useState('')
   const [newDate, setNewDate] = useState('')
+
+  useEffect(() => {
+    GetTodoList().then(response => {
+      console.log(response.data)
+    }).catch(error => {
+      console.log(error)
+    })
+  }, [])
 
   return (
     <View>
