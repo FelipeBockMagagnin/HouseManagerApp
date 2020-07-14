@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Text, Button, View, Modal, StyleSheet, TouchableHighlight, TextInput } from 'react-native'
-import Header from '../../Components/Header/header'
-import { GetTodoList } from '../../providers/todolistProvider'
+import Header from '../../components/Header/header'
+import { GetTodoList } from '../../services/todolistService'
 
 export default function Todolist ({ navigation }) {
   const [items, setItems] = useState([])
