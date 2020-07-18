@@ -11,6 +11,7 @@ export default function Todolist ({ navigation }) {
 
   useEffect(() => {
     GetTodoList().then(response => {
+      setItems(response.data)
       console.log(response.data)
     }).catch(error => {
       console.log(error)
@@ -40,7 +41,7 @@ export default function Todolist ({ navigation }) {
             <TouchableHighlight
               style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
               onPress={() => {
-                setItems([...items, { id: Date.now(), name: newName, creationDate: newDate }])
+                setItems([...items, { id: Date.now(), name: newName, date: newDate }])
                 setNewName('')
                 setNewDate('')
                 setModalVisible(!modalVisible)
@@ -58,7 +59,7 @@ export default function Todolist ({ navigation }) {
             return (
               <View key={item.id} style={{ margin: 10, borderWidth: 2, padding: 10 }}>
                 <Text>Nome: {item.name}</Text>
-                <Text>Data: {item.creationDate}</Text>
+                <Text>Data: {item.date}</Text>
                 <Button
                   onPress={() => {
                     const itemsCopy = [...items]
@@ -73,6 +74,12 @@ export default function Todolist ({ navigation }) {
         </View>
 
         <Button title='add' onPress={() => { setModalVisible(true) }}></Button>
+        <Button title='refresh' onPress={() => GetTodoList().then(response => {
+          setItems(response.data)
+          console.log(response.data)
+        }).catch(error => {
+          console.log(error)
+        })} />
       </View>
     </View>
   )
