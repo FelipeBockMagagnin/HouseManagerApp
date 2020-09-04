@@ -98,16 +98,18 @@ export default function Todolist ({ navigation }) {
         </View>
       </Modal>
 
-      <View style={{ marginBottom: 40 }}>
-        <SafeAreaView>
-          <FlatList
-            data={items}
-            renderItem={RenderItem}
-            keyExtractor={(item) => item.id}
-          />
-        </SafeAreaView>
+      {items.length === 0
+        ? <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: '700', marginTop: 30 }}>Nenhuma tarefa</Text>
+        : <View style={{ marginBottom: 40 }}>
+          <SafeAreaView>
+            <FlatList
+              data={items}
+              renderItem={RenderItem}
+              keyExtractor={(item) => item.id}
+            />
+          </SafeAreaView>
 
-      </View>
+        </View>}
 
       <TouchableOpacity
         style={{
