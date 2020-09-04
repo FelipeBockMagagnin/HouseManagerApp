@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Text, Button, TouchableOpacity, View, CheckBox, Modal, TouchableHighlight, TextInput, SafeAreaView, FlatList } from 'react-native'
+import { Text, TouchableOpacity, View, CheckBox, Modal, TextInput, SafeAreaView, FlatList } from 'react-native'
 import Header from '../../components/Header/header'
-import { GetTodoList } from '../../services/todolistService'
+import { GetTodoList, CreateTodo, DeleteTodo } from '../../services/todolistService'
 import styles from './styles'
 import { Feather } from '@expo/vector-icons'
 
@@ -30,16 +30,26 @@ export default function Todolist ({ navigation }) {
         <View style={{ flex: 8 }}>
           <Text style={{ fontSize: 18, fontWeight: '700', textAlign: 'center' }}>{item.title}</Text>
         </View>
-        <Feather
-          name="x-circle"
-          size={26}
-          color="red"
-          style={{ flex: 1 }} onPress={() => {
-            const itemsCopy = [...items]
-            const removeIndex = itemsCopy.map(function (itemMap) { return itemMap.id }).indexOf(item.id)
-            itemsCopy.splice(removeIndex, 1)
-            setItems(itemsCopy)
-          }} />
+        <TouchableOpacity onPress={() => {
+          DeleteTodo(item.id).then(delResponse => {
+            GetTodoList().then(response => {
+              setItems(response.data)
+            }).catch(error => {
+              console.log(error)
+            })
+          })
+          const itemsCopy = [...items]
+          const removeIndex = itemsCopy.map(function (itemMap) { return itemMap.id }).indexOf(item.id)
+          itemsCopy.splice(removeIndex, 1)
+          setItems(itemsCopy)
+        }}>
+          <Feather
+            name="x-circle"
+            size={26}
+            color="red"
+            style={{ flex: 1 }} />
+        </TouchableOpacity>
+
       </View>
     )
   }
@@ -58,23 +68,32 @@ export default function Todolist ({ navigation }) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={styles.modalText}>Nome</Text>
+            <Text style={styles.modalText}>Titulo</Text>
             <TextInput style={styles.input} value={newName} onChangeText={ text => setNewName(text) }/>
 
-            <Text style={styles.modalText}>Data</Text>
-            <TextInput style={styles.input} value={newDate} onChangeText={ text => setNewDate(text) }/>
+            {/* <Text style={styles.modalText}>Data</Text>
+            <TextInput style={styles.input} value={newDate} onChangeText={ text => setNewDate(text) }/> */}
 
-            <TouchableHighlight
+            <TouchableOpacity
               style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
               onPress={() => {
-                setItems([...items, { id: Date.now(), name: newName, date: newDate }])
-                setNewName('')
-                setNewDate('')
-                setModalVisible(!modalVisible)
-              }}
+                CreateTodo(newName).then(response => {
+                  setNewName('')
+                  setNewDate('')
+                  setModalVisible(!modalVisible)
+                  GetTodoList().then(response => {
+                    setItems(response.data)
+                  }).catch(error => {
+                    console.log(error)
+                  })
+                }).catch(error => {
+                  console.log(error)
+                })
+              }
+              }
             >
               <Text style={styles.textStyle}>ADD</Text>
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
