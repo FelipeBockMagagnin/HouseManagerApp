@@ -1,5 +1,8 @@
 import axios from 'axios'
+import config from './service.json'
+
+const url = config.apiUrl
 
 export function GetTodoList () {
-  return axios.get('http://10.0.0.104:3333/todolist')
+  return axios.get(url + 'todolist')
 }

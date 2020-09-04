@@ -7,7 +7,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import Login from './pages/Login/login'
 import Home from './pages/Home/home'
 import Profile from './pages/Profile/profile'
-import Todolist from './pages/ToDoList/todolist'
+import Todolist from './pages/ToDoList'
 import Bills from './pages/Bills/bills'
 
 import { Feather } from '@expo/vector-icons'
