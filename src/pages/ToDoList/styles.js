@@ -55,5 +55,18 @@ export default StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: 'white'
+  },
+  addButton: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'absolute',
+    borderRadius: 30,
+    top: 30,
+    right: 10,
+    backgroundColor: 'black',
+    width: 35,
+    height: 35
   }
 })

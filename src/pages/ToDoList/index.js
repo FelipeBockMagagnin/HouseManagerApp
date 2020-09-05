@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { Text, TouchableOpacity, View, CheckBox, Modal, TextInput, SafeAreaView, FlatList } from 'react-native'
+import { Text, TouchableOpacity, View, SafeAreaView, FlatList } from 'react-native'
 import Header from '../../components/Header/header'
 import { GetTodoList, CreateTodo, DeleteTodo } from '../../services/todolistService'
 import styles from './styles'
 import { Feather } from '@expo/vector-icons'
+import { List, Checkbox, Button, TextInput, Modal, Portal } from 'react-native-paper'
 
 export default function Todolist ({ navigation }) {
   const [items, setItems] = useState([])
   const [modalVisible, setModalVisible] = useState(false)
-  const [newName, setNewName] = useState('')
-  const [newDate, setNewDate] = useState('')
+  const [title, setTitle] = useState('')
 
   useEffect(() => {
     GetTodoList().then(response => {
@@ -19,36 +19,33 @@ export default function Todolist ({ navigation }) {
     })
   }, [])
 
-  function RenderItem ({ item }) {
+  function TodoItem ({ item }) {
     return (
-      <View key={item.id} style={styles.todoContainer}>
-        <CheckBox
-          color="red"
-          checked={false}
-          style={{ flex: 1 }}
+      <View key={item.id}>
+        <List.Item
+          title={item.title} titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
+          left={props => <Checkbox status={'checked'} color={'#000'} />}
+          right={ () => {
+            return <TouchableOpacity onPress={() => {
+              DeleteTodo(item.id).then(delResponse => {
+                GetTodoList().then(response => {
+                  setItems(response.data)
+                }).catch(error => {
+                  console.log(error)
+                })
+              })
+              const itemsCopy = [...items]
+              const removeIndex = itemsCopy.map(function (itemMap) { return itemMap.id }).indexOf(item.id)
+              itemsCopy.splice(removeIndex, 1)
+              setItems(itemsCopy)
+            }}>
+              <Feather
+                name="x-circle"
+                size={26}
+                color="red" style={{ marginTop: 3 }} />
+            </TouchableOpacity>
+          }}
         />
-        <View style={{ flex: 8 }}>
-          <Text style={{ fontSize: 18, fontWeight: '700', textAlign: 'center' }}>{item.title}</Text>
-        </View>
-        <TouchableOpacity onPress={() => {
-          DeleteTodo(item.id).then(delResponse => {
-            GetTodoList().then(response => {
-              setItems(response.data)
-            }).catch(error => {
-              console.log(error)
-            })
-          })
-          const itemsCopy = [...items]
-          const removeIndex = itemsCopy.map(function (itemMap) { return itemMap.id }).indexOf(item.id)
-          itemsCopy.splice(removeIndex, 1)
-          setItems(itemsCopy)
-        }}>
-          <Feather
-            name="x-circle"
-            size={26}
-            color="red"
-            style={{ flex: 1 }} />
-        </TouchableOpacity>
 
       </View>
     )
@@ -56,47 +53,46 @@ export default function Todolist ({ navigation }) {
 
   return (
     <View>
-      <Header title='Todolist' navigation={navigation}></Header>
+      <Header title='Todolist' navigation={navigation} />
 
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible)
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Titulo</Text>
-            <TextInput style={styles.input} value={newName} onChangeText={ text => setNewName(text) }/>
+      <Portal>
+        <Modal
+          visible={modalVisible}
+          onDismiss={() => {
+            setModalVisible(!modalVisible)
+          }} contentContainerStyle={
+            {
+              paddingVertical: 50,
+              paddingHorizontal: 20,
+              borderRadius: 10,
+              margin: 10,
+              backgroundColor: 'white'
+            }}>
+          <TextInput
+            label="Title"
+            value={title}
+            mode="outlined"
+            onChangeText={text => setTitle(text)}
+          />
 
-            {/* <Text style={styles.modalText}>Data</Text>
-            <TextInput style={styles.input} value={newDate} onChangeText={ text => setNewDate(text) }/> */}
-
-            <TouchableOpacity
-              style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
-              onPress={() => {
-                CreateTodo(newName).then(response => {
-                  setNewName('')
-                  setNewDate('')
-                  setModalVisible(!modalVisible)
-                  GetTodoList().then(response => {
-                    setItems(response.data)
-                  }).catch(error => {
-                    console.log(error)
-                  })
+          <Button mode="contained" style={{ marginTop: 30 }}
+            onPress={() => {
+              CreateTodo(title).then(response => {
+                setTitle('')
+                setModalVisible(!modalVisible)
+                GetTodoList().then(response => {
+                  setItems(response.data)
                 }).catch(error => {
                   console.log(error)
                 })
-              }
-              }
-            >
-              <Text style={styles.textStyle}>ADD</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
+              }).catch(error => {
+                console.log(error)
+              })
+            }}>
+              Adicionar
+          </Button>
+        </Modal>
+      </Portal>
 
       {items.length === 0
         ? <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: '700', marginTop: 30 }}>Nenhuma tarefa</Text>
@@ -104,29 +100,17 @@ export default function Todolist ({ navigation }) {
           <SafeAreaView>
             <FlatList
               data={items}
-              renderItem={RenderItem}
+              renderItem={TodoItem}
               keyExtractor={(item) => item.id}
             />
           </SafeAreaView>
-
         </View>}
 
       <TouchableOpacity
-        style={{
-          borderWidth: 1,
-          borderColor: 'rgba(0,0,0,0.2)',
-          alignItems: 'center',
-          justifyContent: 'center',
-          position: 'absolute',
-          borderRadius: 30,
-          top: 30,
-          right: 10,
-          backgroundColor: '#fff',
-          width: 35,
-          height: 35
-        }} onPress={() => { setModalVisible(true) }}
+        style={styles.addButton}
+        onPress={() => { setModalVisible(true) }}
       >
-        <Feather name="plus" size={30} color="#000" />
+        <Feather name="plus" size={30} color="#00e676" />
       </TouchableOpacity>
     </View>
   )

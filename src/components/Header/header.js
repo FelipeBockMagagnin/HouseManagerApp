@@ -7,7 +7,7 @@ const Header = ({ navigation, title }) => {
   return (
     <View style={styles.header}>
       <TouchableOpacity onPress={() => { navigation.navigate('Profile') }} style={styles.icons}>
-        <Ionicons name="md-person" size={28} color="white" />
+        <Ionicons name="md-person" size={28} color="black" />
       </TouchableOpacity>
       <View style={styles.headerTitle}>
         <Text style={styles.headerText}>{title}</Text>
@@ -19,7 +19,6 @@ const Header = ({ navigation, title }) => {
 const styles = StyleSheet.create({
   header: {
     paddingTop: Constants.statusBarHeight,
-    width: '100%',
     height: Constants.statusBarHeight + 50,
     flexDirection: 'row',
     alignContent: 'center',
@@ -35,12 +34,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     letterSpacing: 1,
-    color: '#fff'
+    color: 'black'
   },
   icons: {
     position: 'absolute',
     left: 16,
-    top: 40
+    top: 35
   }
 })
 
