@@ -11,6 +11,7 @@ import Todolist from './pages/ToDoList'
 import Bills from './pages/Bills/bills'
 
 import { Feather } from '@expo/vector-icons'
+import Shopping from './pages/Shopping'
 
 const Tab = createBottomTabNavigator()
 const Stack = createStackNavigator()
@@ -36,15 +37,15 @@ function TabNavigator () {
           let iconName
 
           switch (route.name) {
-            case 'Home':
+            case 'Inicio':
               iconName = 'home'
               break
 
-            case 'List':
+            case 'Tarefas':
               iconName = 'list'
               break
 
-            case 'Bills':
+            case 'Compras':
               iconName = 'dollar-sign'
               break
           }
@@ -56,9 +57,9 @@ function TabNavigator () {
         activeTintColor: '#00c853',
         inactiveTintColor: '#1b1b1b'
       }}>
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="List" component={Todolist} />
-      <Tab.Screen name="Bills" component={Bills} />
+      <Tab.Screen name="Inicio" component={Home} />
+      <Tab.Screen name="Tarefas" component={Todolist} />
+      <Tab.Screen name="Compras" component={Shopping} />
     </Tab.Navigator>
   )
 }
