@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, ScrollView } from 'react-native'
-import Header from '../../components/Header/header'
+import { View, ScrollView } from 'react-native'
+import Header from '../../components/Header'
 import { GetTodoList } from '../../services/todolistService'
-import { Card, Title, Paragraph, Button, Avatar } from 'react-native-paper'
+import { Card, Paragraph, Avatar } from 'react-native-paper'
 
 export default function Home ({ navigation }) {
   const [todo, setTodo] = useState([])
@@ -51,6 +51,5 @@ export default function Home ({ navigation }) {
         </Card>
       </ScrollView>
     </View>
-
   )
 }
