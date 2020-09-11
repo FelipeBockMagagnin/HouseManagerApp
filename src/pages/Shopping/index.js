@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, StyleSheet, SafeAreaView, FlatList } from 'react-native'
-import Header from '../../components/Header/header'
+import { Text, View, SafeAreaView, FlatList } from 'react-native'
+
 import { GetShoppings } from '../../services/shoppingService'
+
+import Header from '../../components/Header'
+import styles from './styles'
 
 export default function Shopping ({ navigation }) {
   const [items, setItems] = useState([])
@@ -26,22 +29,9 @@ export default function Shopping ({ navigation }) {
         <FlatList
           data={items}
           renderItem={Item}
-          keyExtractor={(item) => item.id} numColumns={4}
+          keyExtractor={(item) => item.index} numColumns={4}
         />
       </SafeAreaView>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  block: {
-    flex: 1,
-    backgroundColor: 'white',
-    padding: 5,
-    margin: 5,
-    borderRadius: 8,
-    height: 80,
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-})
