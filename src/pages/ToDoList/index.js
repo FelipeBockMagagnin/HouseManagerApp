@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Text, TouchableOpacity, View, SafeAreaView, FlatList } from 'react-native'
-import Header from '../../components/Header/header'
+import { List, Checkbox, Button, TextInput, Modal, Portal } from 'react-native-paper'
+
 import { GetTodoList, CreateTodo, DeleteTodo } from '../../services/todolistService'
+
+import Header from '../../components/Header'
 import styles from './styles'
 import { Feather } from '@expo/vector-icons'
-import { List, Checkbox, Button, TextInput, Modal, Portal } from 'react-native-paper'
 
 export default function Todolist ({ navigation }) {
   const [items, setItems] = useState([])
@@ -19,79 +21,12 @@ export default function Todolist ({ navigation }) {
     })
   }, [])
 
-  function TodoItem ({ item }) {
-    return (
-      <View key={item.id}>
-        <List.Item
-          title={item.title} titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
-          left={props => <Checkbox status={'checked'} color={'#000'} />}
-          right={ () => {
-            return <TouchableOpacity onPress={() => {
-              DeleteTodo(item.id).then(delResponse => {
-                GetTodoList().then(response => {
-                  setItems(response.data)
-                }).catch(error => {
-                  console.log(error)
-                })
-              })
-              const itemsCopy = [...items]
-              const removeIndex = itemsCopy.map(function (itemMap) { return itemMap.id }).indexOf(item.id)
-              itemsCopy.splice(removeIndex, 1)
-              setItems(itemsCopy)
-            }}>
-              <Feather
-                name="x-circle"
-                size={26}
-                color="red" style={{ marginTop: 3 }} />
-            </TouchableOpacity>
-          }}
-        />
-
-      </View>
-    )
-  }
-
   return (
     <View>
       <Header title='Todolist' navigation={navigation} />
 
       <Portal>
-        <Modal
-          visible={modalVisible}
-          onDismiss={() => {
-            setModalVisible(!modalVisible)
-          }} contentContainerStyle={
-            {
-              paddingVertical: 50,
-              paddingHorizontal: 20,
-              borderRadius: 10,
-              margin: 10,
-              backgroundColor: 'white'
-            }}>
-          <TextInput
-            label="Title"
-            value={title}
-            mode="outlined"
-            onChangeText={text => setTitle(text)}
-          />
-
-          <Button mode="contained" style={{ marginTop: 30 }}
-            onPress={() => {
-              CreateTodo(title).then(response => {
-                setTitle('')
-                setModalVisible(!modalVisible)
-                GetTodoList().then(response => {
-                  setItems(response.data)
-                }).catch(error => {
-                  console.log(error)
-                })
-              }).catch(error => {
-                console.log(error)
-              })
-            }}>
-              Adicionar
-          </Button>
-        </Modal>
+        <AddTodoModal/>
       </Portal>
 
       {items.length === 0
@@ -114,4 +49,74 @@ export default function Todolist ({ navigation }) {
       </TouchableOpacity>
     </View>
   )
+
+  function AddTodoModal () {
+    return (
+      <Modal
+        visible={modalVisible}
+        onDismiss={() => {
+          setModalVisible(!modalVisible)
+        }} contentContainerStyle={
+          {
+            paddingVertical: 50,
+            paddingHorizontal: 20,
+            borderRadius: 10,
+            margin: 10,
+            backgroundColor: 'white'
+          }}>
+        <TextInput
+          label="Title"
+          value={title}
+          mode="outlined"
+          onChangeText={text => setTitle(text)}
+        />
+
+        <Button mode="contained" style={{ marginTop: 30 }}
+          onPress={() => {
+            CreateTodo(title).then(response => {
+              setTitle('')
+              setModalVisible(!modalVisible)
+              GetTodoList().then(response => {
+                setItems(response.data)
+              }).catch(error => {
+                console.log(error)
+              })
+            }).catch(error => {
+              console.log(error)
+            })
+          }}>
+          Adicionar
+        </Button>
+      </Modal>
+    )
+  }
+
+  function TodoItem ({ item }) {
+    return (
+      <View key={item.id}>
+        <List.Item
+          title={item.title} titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
+          left={props => <Checkbox status={'checked'} color={'#000'} />}
+          right={ () => {
+            return <TouchableOpacity onPress={() => DeleteTodoList(item.id)} >
+              <Feather
+                name="x-circle"
+                size={26}
+                color="red" style={{ marginTop: 3 }} />
+            </TouchableOpacity>
+          }}
+        />
+      </View>
+    )
+  }
+
+  function DeleteTodoList (id) {
+    DeleteTodo(id).then(delResponse => {
+      GetTodoList().then(response => {
+        setItems(response.data)
+      }).catch(error => {
+        console.log(error)
+      })
+    })
+  }
 }
