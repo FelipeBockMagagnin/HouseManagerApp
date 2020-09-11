@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View } from 'react-native'
-import Header from '../../components/Header/header'
+import Header from '../../components/Header'
 
 export default function Bills ({ navigation }) {
   return (
