@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Text, TouchableOpacity, View, SafeAreaView, FlatList } from 'react-native'
-import { List, Checkbox, Button, TextInput, Modal, Portal, Surface, RadioButton } from 'react-native-paper'
+import { List, Button, TextInput, Modal, Portal, Surface, RadioButton } from 'react-native-paper'
 
 import { GetTodoList, CreateTodo, DeleteTodo } from '../../services/todolistService'
 
