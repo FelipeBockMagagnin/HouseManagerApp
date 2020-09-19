@@ -89,7 +89,7 @@ export default function Todolist ({ navigation }) {
       <Surface key={item.id} style={styles.todo}>
         <List.Item
           title={item.title} titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
-          left={props => <RadioButton status={'checked'} color={'#00e676'} />}
+          left={props => <RadioButton status={item.check === true ? 'checked' : 'unchecked'} color={'#00e676'} />}
           right={ () => {
             return <TouchableOpacity onPress={() => DeleteTodoList(item.id)} >
               <Feather

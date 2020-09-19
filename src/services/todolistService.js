@@ -10,7 +10,7 @@ export function GetTodoList () {
 export function CreateTodo (title) {
   return axios.post(url + 'todolist', {
     title: title,
-    name: 'name',
+    check: false,
     description: 'description'
   })
 }
