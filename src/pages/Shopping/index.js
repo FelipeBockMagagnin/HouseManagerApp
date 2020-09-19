@@ -23,7 +23,7 @@ export default function Shopping ({ navigation }) {
 
   return (
     <View>
-      <Header title='Shopping' navigation={navigation}></Header>
+      <Header title='Compras' navigation={navigation}></Header>
 
       <SafeAreaView style={{ marginBottom: 150 }}>
         <FlatList

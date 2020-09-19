@@ -8,6 +8,11 @@ export default StyleSheet.create({
     margin: 10,
     backgroundColor: 'white'
   },
+  todo: {
+    margin: 5,
+    elevation: 4,
+    borderRadius: 10
+  },
   addButton: {
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.2)',

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Text, TouchableOpacity, View, SafeAreaView, FlatList } from 'react-native'
-import { List, Checkbox, Button, TextInput, Modal, Portal } from 'react-native-paper'
+import { List, Checkbox, Button, TextInput, Modal, Portal, Surface, RadioButton } from 'react-native-paper'
 
 import { GetTodoList, CreateTodo, DeleteTodo } from '../../services/todolistService'
 
@@ -23,7 +23,7 @@ export default function Todolist ({ navigation }) {
 
   return (
     <View>
-      <Header title='Todolist' navigation={navigation} />
+      <Header title='Tarefas' navigation={navigation} />
 
       <Portal>
         <AddTodoModal/>
@@ -56,14 +56,7 @@ export default function Todolist ({ navigation }) {
         visible={modalVisible}
         onDismiss={() => {
           setModalVisible(!modalVisible)
-        }} contentContainerStyle={
-          {
-            paddingVertical: 50,
-            paddingHorizontal: 20,
-            borderRadius: 10,
-            margin: 10,
-            backgroundColor: 'white'
-          }}>
+        }} contentContainerStyle={styles.todoContainer}>
         <TextInput
           label="Title"
           value={title}
@@ -93,10 +86,10 @@ export default function Todolist ({ navigation }) {
 
   function TodoItem ({ item }) {
     return (
-      <View key={item.id}>
+      <Surface key={item.id} style={styles.todo}>
         <List.Item
           title={item.title} titleStyle={{ fontWeight: 'bold', fontSize: 18 }}
-          left={props => <Checkbox status={'checked'} color={'#000'} />}
+          left={props => <RadioButton status={'checked'} color={'#00e676'} />}
           right={ () => {
             return <TouchableOpacity onPress={() => DeleteTodoList(item.id)} >
               <Feather
@@ -106,7 +99,7 @@ export default function Todolist ({ navigation }) {
             </TouchableOpacity>
           }}
         />
-      </View>
+      </Surface>
     )
   }
 
