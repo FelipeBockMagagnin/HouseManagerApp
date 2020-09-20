@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Text, TouchableOpacity, View, SafeAreaView, FlatList } from 'react-native'
-import { List, Button, TextInput, Modal, Portal, Surface, RadioButton } from 'react-native-paper'
+import { Text, TouchableOpacity, View, Modal, SafeAreaView, FlatList } from 'react-native'
+import { List, Button, TextInput, Surface, RadioButton } from 'react-native-paper'
 
 import { GetTodoList, CreateTodo, DeleteTodo } from '../../services/todolistService'
 
@@ -25,9 +25,7 @@ export default function Todolist ({ navigation }) {
     <View>
       <Header title='Tarefas' navigation={navigation} />
 
-      <Portal>
-        <AddTodoModal/>
-      </Portal>
+      <AddTodoModal/>
 
       {items.length === 0
         ? <Text style={{ textAlign: 'center', fontSize: 18, fontWeight: '700', marginTop: 30 }}>Nenhuma tarefa</Text>
@@ -53,33 +51,40 @@ export default function Todolist ({ navigation }) {
   function AddTodoModal () {
     return (
       <Modal
+        animationType="slide"
+        transparent={true}
         visible={modalVisible}
-        onDismiss={() => {
+        onRequestClose={() => {
           setModalVisible(!modalVisible)
-        }} contentContainerStyle={styles.todoContainer}>
-        <TextInput
-          label="Title"
-          value={title}
-          mode="outlined"
-          onChangeText={text => setTitle(text)}
-        />
+        }}>
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <TextInput
+              label="Title"
+              value={title} mode='outlined'
+              onChangeText={text => setTitle(text)}
+              style={{ width: 300 }}
+            />
 
-        <Button mode="contained" style={{ marginTop: 30 }}
-          onPress={() => {
-            CreateTodo(title).then(response => {
-              setTitle('')
-              setModalVisible(!modalVisible)
-              GetTodoList().then(response => {
-                setItems(response.data)
-              }).catch(error => {
-                console.log(error)
-              })
-            }).catch(error => {
-              console.log(error)
-            })
-          }}>
-          Adicionar
-        </Button>
+            <Button mode="contained" style={{ marginTop: 30 }}
+              onPress={() => {
+                CreateTodo(title).then(response => {
+                  setTitle('')
+                  setModalVisible(!modalVisible)
+                  GetTodoList().then(response => {
+                    setItems(response.data)
+                  }).catch(error => {
+                    console.log(error)
+                  })
+                }).catch(error => {
+                  console.log(error)
+                })
+              }}>
+              Adicionar
+            </Button>
+          </View>
+        </View>
+
       </Modal>
     )
   }
