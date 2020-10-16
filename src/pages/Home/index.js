@@ -19,7 +19,7 @@ export default function Home ({ navigation }) {
 
   return (
     <View>
-      <Header title='Tarefas' navigation={navigation}></Header>
+      <Header title='Início' navigation={navigation}></Header>
 
       <ScrollView>
         <Card style={{ padding: 10, margin: 10 }} >

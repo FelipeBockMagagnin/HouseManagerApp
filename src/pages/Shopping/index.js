@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Text, View, SafeAreaView, FlatList } from 'react-native'
+import { Text, View, SafeAreaView, FlatList, TouchableHighlight } from 'react-native'
 
 import { GetShoppings } from '../../services/shoppingService'
 
@@ -7,6 +7,8 @@ import Header from '../../components/Header'
 import styles from './styles'
 
 export default function Shopping ({ navigation }) {
+  
+  const colors = ['red', 'blue', 'black'];
   const [items, setItems] = useState([])
 
   useEffect(() => {
@@ -15,9 +17,12 @@ export default function Shopping ({ navigation }) {
 
   function Item ({ item }) {
     return (
-      <View style={styles.block}>
-        <Text>{item.name}</Text>
-      </View>
+      <TouchableHighlight 
+        style={styles.block}        
+        onPress={() => alert('Removendo item')} underlayColor="white"
+      >
+          <Text>{item.name}</Text>
+      </TouchableHighlight>      
     )
   }
 
