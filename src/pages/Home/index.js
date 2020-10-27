@@ -1,19 +1,31 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, Text, ActivityIndicator, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { GetTodoList } from '../../services/todolistService'
 import { Card, Paragraph, Avatar } from 'react-native-paper'
 
 export default function Home ({ navigation }) {
-  const [todo, setTodo] = useState([])
+  const [todo, setTodo] = useState()
 
   useEffect(() => {
     GetTodoList().then(response => {
+      console.log(todo);
+      console.log('resposta:', JSON.stringify(response));
       setTodo(response.data)
     }).catch(error => {
-      console.log(error)
-    })
+      console.log(todo);
+
+      console.log('Error', JSON.stringify(error));
+    });
   }, [])
+
+  if(todo === undefined){
+    return (
+      <View style={[styles.container, styles.horizontal]}>
+      <ActivityIndicator size='large' style={{transform: [{scale: 2}]}} color="#00ff00" />
+    </View>
+    )
+  }
 
   const LeftContent = props => <Avatar.Icon {...props} icon="format-list-bulleted-square" />
 
@@ -53,3 +65,15 @@ export default function Home ({ navigation }) {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
+  }
+});

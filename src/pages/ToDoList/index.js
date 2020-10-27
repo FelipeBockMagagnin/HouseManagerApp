@@ -15,9 +15,10 @@ export default function Todolist ({ navigation }) {
 
   useEffect(() => {
     GetTodoList().then(response => {
+      console.log('response', response)
       setItems(response.data)
     }).catch(error => {
-      console.log(error)
+      console.log('error', (error))
     })
   }, [])
 
@@ -43,7 +44,7 @@ export default function Todolist ({ navigation }) {
         style={styles.addButton}
         onPress={() => { setModalVisible(true) }}
       >
-        <Feather name="plus" size={30} color="#00e676" />
+        <Feather name="plus" size={30} color="#00c853" />
       </TouchableOpacity>
     </View>
   )
