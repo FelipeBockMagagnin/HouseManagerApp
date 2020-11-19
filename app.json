@@ -12,6 +12,7 @@
     },
     "android": {
       "package": "com.dotelpy.housemanager",
+      "googleServicesFile": "./google-services.json",
       "versionCode": 1
     },
     "updates": {

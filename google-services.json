@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "496207766849",
+    "firebase_url": "https://housemanager-d343c.firebaseio.com",
+    "project_id": "housemanager-d343c",
+    "storage_bucket": "housemanager-d343c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:496207766849:android:092a6a56c1f4cf47912dc0",
+        "android_client_info": {
+          "package_name": "com.dotelpy.housemanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "496207766849-c39hv9vl15nh0o85k243e5cggft3sgm0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dotelpy.housemanager",
+            "certificate_hash": "f38dd1b72d78531d352338d14b63f0ff63e50b23"
+          }
+        },
+        {
+          "client_id": "496207766849-4q7fob580mg0lmrrl0f9ggod588oil3o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYzqOuIQUgTuM0VAZYGghaAGlMG8cdJLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "496207766849-4q7fob580mg0lmrrl0f9ggod588oil3o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
