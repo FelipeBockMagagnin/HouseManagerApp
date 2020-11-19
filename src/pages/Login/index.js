@@ -10,10 +10,16 @@ export default function Login ({ navigation }) {
       androidClientId: '496207766849-c39hv9vl15nh0o85k243e5cggft3sgm0.apps.googleusercontent.com',
       scopes: ['profile', 'email']
     }).then(({ type, accessToken, user }) => {
+      console.log(type)
+      console.log(accessToken)
+      console.log(user)
+      console.log('chegou aqui')
       if (type === 'success') {
         // Then you can use the Google REST API
         console.log('sucess')
       }
+    }).catch(err => {
+      console.log(err)
     })
   }, [])
 
