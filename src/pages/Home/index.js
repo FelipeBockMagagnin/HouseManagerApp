@@ -4,26 +4,28 @@ import Header from '../../components/Header'
 import { GetTodoList } from '../../services/todolistService'
 import { Card, Paragraph, Avatar } from 'react-native-paper'
 
-export default function Home ({ navigation }) {
+export default function Home ({ navigation, route }) {
   const [todo, setTodo] = useState()
 
   useEffect(() => {
+    console.log('params', route.params)
     GetTodoList().then(response => {
-      console.log(todo)
-      console.log('resposta:', JSON.stringify(response))
+      console.log(response.data)
       setTodo(response.data)
     }).catch(error => {
-      console.log(todo)
-
-      console.log('Error', JSON.stringify(error))
+      console.log(error)
     })
   }, [])
 
   if (todo === undefined) {
     return (
-      <View style={[styles.container, styles.horizontal]}>
-        <ActivityIndicator size='large' style={{ transform: [{ scale: 2 }] }} color="#00ff00" />
+      <View style={styles.container}>
+        <Header title='Início' navigation={navigation}></Header>
+        <View style={[styles.container, styles.horizontal]}>
+          <ActivityIndicator size='large' style={{ transform: [{ scale: 2 }] }} color="#00ff00" />
+        </View>
       </View>
+
     )
   }
 
