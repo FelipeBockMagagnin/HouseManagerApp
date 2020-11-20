@@ -9,21 +9,21 @@ export default function Home ({ navigation }) {
 
   useEffect(() => {
     GetTodoList().then(response => {
-      console.log(todo);
-      console.log('resposta:', JSON.stringify(response));
+      console.log(todo)
+      console.log('resposta:', JSON.stringify(response))
       setTodo(response.data)
     }).catch(error => {
-      console.log(todo);
+      console.log(todo)
 
-      console.log('Error', JSON.stringify(error));
-    });
+      console.log('Error', JSON.stringify(error))
+    })
   }, [])
 
-  if(todo === undefined){
+  if (todo === undefined) {
     return (
       <View style={[styles.container, styles.horizontal]}>
-      <ActivityIndicator size='large' style={{transform: [{scale: 2}]}} color="#00ff00" />
-    </View>
+        <ActivityIndicator size='large' style={{ transform: [{ scale: 2 }] }} color="#00ff00" />
+      </View>
     )
   }
 
@@ -69,11 +69,11 @@ export default function Home ({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   horizontal: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
     padding: 10
   }
-});
+})
