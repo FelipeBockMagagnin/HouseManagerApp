@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, ScrollView, Text, ActivityIndicator, StyleSheet } from 'react-native'
+import { View, ScrollView, ActivityIndicator, StyleSheet } from 'react-native'
 import Header from '../../components/Header'
 import { GetTodoList } from '../../services/todolistService'
 import { Card, Paragraph, Avatar } from 'react-native-paper'
@@ -25,7 +25,6 @@ export default function Home ({ navigation, route }) {
           <ActivityIndicator size='large' style={{ transform: [{ scale: 2 }] }} color="#00ff00" />
         </View>
       </View>
-
     )
   }
 

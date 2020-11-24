@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Text, View, Image } from 'react-native'
+import React from 'react'
+import { View, AsyncStorage } from 'react-native'
 import * as Google from 'expo-google-app-auth'
 import { SocialIcon } from 'react-native-elements'
 
@@ -10,8 +10,8 @@ export default function Login ({ navigation }) {
     }).then(({ type, accessToken, user }) => {
       console.log(user)
       if (type === 'success') {
-        navigation.navigate('Home', {
-          user: user
+        AsyncStorage.setItem('user', JSON.stringify(user)).then(() => {
+          navigation.navigate('Home')
         })
       }
     })
